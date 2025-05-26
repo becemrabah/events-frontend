@@ -35,7 +35,7 @@ export default function AddEvent() {
       onSubmit={handleSubmit}
       className="bg-gray-700 p-6 rounded mb-6 max-w-lg mx-auto"
     >
-       <h2 className="text-3xl mb-4">Ajouter une evenement</h2>
+       <h2 className="text-center text-2xl font-semibold mb-6">Ajouter une événements</h2>
       <div className="mb-4">
         <label htmlFor="title" className="block mb-1 font-semibold text-white">
           Titre

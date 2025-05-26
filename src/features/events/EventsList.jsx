@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useGetEventsQuery, useDeleteEventMutation } from './eventsSlice';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const EventsList = () => {
   const { data, isLoading, isError, error } = useGetEventsQuery();
@@ -8,8 +9,8 @@ const EventsList = () => {
   const [filterLieu, setFilterLieu] = useState('');
   const [filterDateMin, setFilterDateMin] = useState('');
 
-  if (isLoading) return <p className="text-center mt-8">Chargement...</p>;
-  if (isError) return <p className="text-center text-red-600 mt-8">Erreur : {error?.data?.message || error?.error || 'Une erreur est survenue.'}</p>;
+  if (isLoading) return <p className="text-center mt-4">Chargement...</p>;
+  if (isError) return <p className="text-center text-danger mt-4">Erreur : {error?.data?.message || error?.error || 'Une erreur est survenue.'}</p>;
 
   const events = data?.events || [];
 
@@ -30,66 +31,66 @@ const EventsList = () => {
   });
 
   return (
-    <div className="min-h-screen flex items-start justify-center bg-gray-100 py-10 px-4">
-      <div className="w-full max-w-4xl bg-white p-6 rounded shadow-md">
-        <h2 className="text-2xl font-semibold text-center mb-6">Liste des evenements</h2>
+    <div className="min-vh-100 d-flex justify-content-center bg-dark text-white py-5 px-3">
+      <div className="w-100" style={{ maxWidth: '1000px' }}>
+        <div className="bg-white text-dark p-4 rounded shadow-sm">
+          <h2 className="h4 text-center mb-4">Liste des événements</h2>
 
-        {/* 🔍 Filtres */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
-          <input
-            type="text"
-            placeholder="Filtrer par lieu"
-            value={filterLieu}
-            onChange={e => setFilterLieu(e.target.value)}
-          className="p-2 border rounded w-40"
-
-          />
-          <input
-            type="date"
-            value={filterDateMin}
-            onChange={e => setFilterDateMin(e.target.value)}
-           className="p-2 border rounded w-40"
-
-          />
-        </div>
-
-        {/* 📅 Tableau */}
-        {filteredEvents.length > 0 ? (
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-white border rounded shadow text-sm">
-              <thead>
-                <tr className="bg-gray-800 text-white">
-                  <th className="py-2 px-4 text-left">Titre</th>
-                  <th className="py-2 px-4 text-left">Lieu</th>
-                  <th className="py-2 px-4 text-left">Date</th>
-                  <th className="py-2 px-4 text-left">Participants</th>
-                  <th className="py-2 px-4 text-left">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredEvents.map(event => (
-                  <tr key={event._id} className="border-b hover:bg-gray-100">
-                    <td className="py-2 px-4">{event.titre}</td>
-                    <td className="py-2 px-4">{event.lieu}</td>
-                    <td className="py-2 px-4">{new Date(event.date).toLocaleDateString()}</td>
-                    <td className="py-2 px-4">{event.nbParticipants}</td>
-                    <td className="py-2 px-4">
-                      <button
-                        onClick={() => handleDelete(event._id)}
-                        disabled={isDeleting}
-                        className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50"
-                      >
-                        {isDeleting ? 'Suppression...' : 'Supprimer'}
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          {/* 🔍 Filtres */}
+          <div className="d-flex flex-column flex-sm-row align-items-sm-center gap-3 mb-4">
+            <input
+              type="text"
+              placeholder="Filtrer par lieu"
+              value={filterLieu}
+              onChange={e => setFilterLieu(e.target.value)}
+              className="form-control w-auto"
+            />
+            <input
+              type="date"
+              value={filterDateMin}
+              onChange={e => setFilterDateMin(e.target.value)}
+              className="form-control w-auto"
+            />
           </div>
-        ) : (
-          <p className="text-center text-gray-600">Aucun événement trouvé.</p>
-        )}
+
+          {/* 📅 Tableau */}
+          {filteredEvents.length > 0 ? (
+            <div className="table-responsive">
+              <table className="table table-bordered table-hover table-sm">
+                <thead className="table-dark">
+                  <tr>
+                    <th>Titre</th>
+                    <th>Lieu</th>
+                    <th>Date</th>
+                    <th>Participants</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredEvents.map(event => (
+                    <tr key={event._id}>
+                      <td>{event.titre}</td>
+                      <td>{event.lieu}</td>
+                      <td>{new Date(event.date).toLocaleDateString()}</td>
+                      <td>{event.nbParticipants}</td>
+                      <td>
+                        <button
+                          onClick={() => handleDelete(event._id)}
+                          disabled={isDeleting}
+                          className="btn btn-sm btn-danger"
+                        >
+                          {isDeleting ? 'Suppression...' : 'Supprimer'}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p className="text-center text-muted">Aucun événement trouvé.</p>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -28,37 +28,46 @@ export default function Login() {
       setError('Email ou mot de passe incorrect.');
     }
   };
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-800 text-white">
-     <div className="w-full max-w-[600px] bg-gray-700 p-6 rounded shadow">
-    <main className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
-      <form onSubmit={handleSubmit} className="bg-gray-700 p-6 rounded shadow max-w-md w-full">
-        <h1 className="text-2xl mb-4">Se connecter</h1>
-        <input 
-          type="email"
-          aria-label="Email"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          required
-          className="w-full p-2 mb-3 rounded bg-gray-800 border border-gray-600"
-        />
-        <input 
-          type="password"
-          aria-label="Mot de passe"
-          placeholder="Mot de passe"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          required
-          className="w-full p-2 mb-4 rounded bg-gray-800 border border-gray-600"
-        />
-           {error && (
-          <div className="text-red-500 mb-4 text-sm">{error}</div>
-        )}
-        <button type="submit" className="w-full bg-indigo-600 py-2 rounded hover:bg-indigo-700">Connexion</button>
-      </form>
-    </main>
+ return (
+    <div className="min-vh-100 d-flex align-items-center justify-content-center bg-dark text-white">
+      <div className="w-100" style={{ maxWidth: '600px' }}>
+        <main className="min-vh-100 d-flex align-items-center justify-content-center bg-secondary text-white">
+          <form onSubmit={handleSubmit} className="bg-dark p-4 rounded shadow w-100" style={{ maxWidth: '400px' }}>
+            <h1 className="h4 mb-4">Se connecter</h1>
+
+            <div className="mb-3">
+              <input
+                type="email"
+                aria-label="Email"
+                placeholder="Email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+                className="form-control"
+              />
+            </div>
+
+            <div className="mb-3">
+              <input
+                type="password"
+                aria-label="Mot de passe"
+                placeholder="Mot de passe"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+                className="form-control"
+              />
+            </div>
+
+            {error && (
+              <div className="text-danger mb-3 small">{error}</div>
+            )}
+
+            <button type="submit" className="btn btn-primary w-100">Connexion</button>
+          </form>
+        </main>
+      </div>
     </div>
-        </div>
-  )
+  );
 }
+

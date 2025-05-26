@@ -19,11 +19,15 @@ const Dashboard = () =>  {
     { name: 'Participants', value: data.totalParticipants },
   ];
   return (
-<div className="min-h-screen flex items-center justify-center bg-gray-800 text-white">
+<div className="min-h-screen flex items-center justify-center bg-gray-800  bg-dark text-white">
 
   <div className="w-full max-w-[600px] bg-gray-700 p-6 rounded shadow">
 <main>
-      <h2>Statistiques du Dashboard</h2>
+  <div className='mb-10'>
+    <AddEvent />
+    </div>
+    <div className='items-center'>
+      <h2  className="text-center text-2xl font-semibold mb-6">Statistiques du Dashboard</h2>
       <p>Total d'événements : {data.totalEvents}</p>
       <p>Total de participants : {data.totalParticipants}</p>
       <ResponsiveContainer width="100%" height={300}>
@@ -46,11 +50,7 @@ const Dashboard = () =>  {
           <Legend />
         </PieChart>
       </ResponsiveContainer>
-
-      
-     
-       
-        <AddEvent />
+      </div>
         <EventsList />
       </main>
     </div>
